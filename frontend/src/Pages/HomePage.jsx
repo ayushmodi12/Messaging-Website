@@ -1,10 +1,21 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Container, Box, Text, useColorModeValue } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import Login from "../Components/Authentication/Login";
 import Register from "../Components/Authentication/Register";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const HomePage = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (userInfo) {
+      history.push("/chats");
+    }
+  }, [history]);
+
   const colors = useColorModeValue(
     ["teal.50", "blue.50"],
     ["teal.900", "blue.900"]
