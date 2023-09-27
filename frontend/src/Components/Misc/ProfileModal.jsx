@@ -22,8 +22,8 @@ const ProfileModal = ({ user, children }) => {
     <ModalOverlay
       bg="none"
       backdropFilter="auto"
-      backdropInvert="70%"
-      //   backdropBlur="1.5px"
+      // backdropInvert="70%"
+        backdropBlur="1.5px"
     />
   );
 
@@ -41,36 +41,38 @@ const ProfileModal = ({ user, children }) => {
           {children}
         </span>
       ) : (
-        <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+        <IconButton display={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
       )}
       <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
         {overlay}
         <ModalOverlay />
-        <ModalContent h="410px">
+        <ModalContent bgColor="blue.100" h="410px">
           <ModalHeader
             fontSize="40px"
-            fontFamily="Work sans"
-            d="flex"
+            fontFamily="Poppins"
+            display="flex"
             justifyContent="center"
           >
             {user.name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody
-            d="flex"
+            display="flex"
             flexDir="column"
             alignItems="center"
             justifyContent="space-between"
           >
             <Image
               borderRadius="full"
+              border={"2px"}
               boxSize="150px"
+              fit={"cover"}
               src={user.profilePicture}
               alt={user.name}
             />
             <Text
               fontSize={{ base: "28px", md: "30px" }}
-              fontFamily="Work sans"
+              fontFamily="Poppins"
             >
               Email: {user.email}
             </Text>

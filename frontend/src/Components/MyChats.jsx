@@ -3,9 +3,9 @@ import { Box, Stack, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getSender } from "../config/ChatLogics";
+import { getSender } from "../Config/ChatLogics";
 import ChatLoading from "./ChatLoading";
-import GroupChatModal from "./miscellaneous/GroupChatModal";
+import GroupChatModal from "./Misc/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
 
@@ -30,7 +30,7 @@ const MyChats = ({ fetchAgain }) => {
     } catch (error) {
       toast({
         title: "Error Occured!",
-        description: "Failed to Load the chats",
+        description: error.response.data.message,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -47,31 +47,40 @@ const MyChats = ({ fetchAgain }) => {
 
   return (
     <Box
-      d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
+      display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
       flexDir="column"
       alignItems="center"
       p={3}
-      bg="white"
+      // bg="white"
+      // bg="green.300"
+      // bg="rgb(12, 165, 196)"
+      // bg="#9EDDFF"
+      // bg="#7091F5"
+      bg="#4477CE"
+      // bg="#279EFF"
       w={{ base: "100%", md: "31%" }}
       borderRadius="lg"
-      borderWidth="1px"
+      // borderWidth="1px"
     >
       <Box
         pb={3}
         px={3}
         fontSize={{ base: "28px", md: "30px" }}
-        fontFamily="Work sans"
-        d="flex"
+        // fontFamily="Work sans"
+        fontFamily={"Poppins"}
+        display="flex"
         w="100%"
         justifyContent="space-between"
         alignItems="center"
+        color={"white"}
       >
         My Chats
         <GroupChatModal>
           <Button
-            d="flex"
+          bg={"white"}
+            display="flex"
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-            rightIcon={<AddIcon />}
+            leftIcon={<AddIcon />}
           >
             New Group Chat
           </Button>
@@ -83,7 +92,7 @@ const MyChats = ({ fetchAgain }) => {
         p={3}
         bg="#F8F8F8"
         w="100%"
-        h="100%"
+        h="90%"
         borderRadius="lg"
         overflowY="hidden"
       >

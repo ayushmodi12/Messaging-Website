@@ -3,9 +3,16 @@
 .App {
   min-height: 100vh;
   display: flex;
-  background-color: rgb(12, 165, 196);
+  /* background-color: rgb(12, 165, 196); */
+  background-color: #98b0ff;
+  /* background-color: #E4F1FF; */
+  /* background-color: rgb(227, 44, 44); */
   /* align-items: center; */
   justify-content: center;
   /* background-color:  turquoise; */
   /* background-color: aquamarine; */
+}
+
+::-webkit-scrollbar {
+  width: 0px;
 }

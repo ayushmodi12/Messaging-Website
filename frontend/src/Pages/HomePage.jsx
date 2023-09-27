@@ -40,7 +40,9 @@ const HomePage = () => {
           {/* Courier */}
           {/* Stems */}
           {/* Chirp-Leaf */}
-          Leafy
+          {/* Leafy */}
+          {/* Blink */}
+          BlinkChat
           {/* Birdy */}
           {/* Birdlet */}
           {/* Lilypad */}

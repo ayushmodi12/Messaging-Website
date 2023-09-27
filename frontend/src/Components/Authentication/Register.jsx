@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
+import { ChatState } from "../../Context/ChatProvider";
 
 const Register = () => {
   const [name, setName] = useState();
@@ -26,10 +27,14 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const history = useHistory();
+  const [profilePictureLoading, setprofilePictureLoading] = useState(false);
 
   const handleClick = () => setShow(!show);
+
+  const { setUser } = ChatState();
+
   const postDetails = (pictures) => {
-    setLoading(true);
+    // setprofilePictureLoading(true);
     if (pictures === undefined) {
       toast({
         title: "Please select an image",
@@ -53,11 +58,11 @@ const Register = () => {
         .then((data) => {
           setprofilePicture(data.url.toString());
           console.log(data);
-          setLoading(false);
+          // setprofilePictureLoading(false);
         })
         .catch((err) => {
           console.log(err);
-          setLoading(false);
+          // setprofilePictureLoading(false);
         });
     } else {
       toast({
@@ -67,10 +72,80 @@ const Register = () => {
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+      // setprofilePictureLoading(false);
       return;
     }
   };
+
+  const handleSubmit2 = async () => {
+    setLoading(true);
+    if (!name || !email || !password || !confirmPassword) {
+      toast({
+        title: "Please fill up all the fields",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast({
+        title: "The Passwords do not match",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(
+        "/api/user",
+        {
+          name,
+          email,
+          password,
+          profilePicture,
+        },
+        config
+      );
+
+      toast({
+        title: "Registered Succesfully. Login using your registered credentials",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+        position: "bottom",
+      });
+      // setUser(data);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+      history.push("/");
+    } catch (error) {
+      toast({
+        title: "Error Occured",
+        status: "warning",
+        description: error.response.data.message,
+        duration: 4000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+    }
+
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
     if (!name || !email || !password || !confirmPassword) {
@@ -83,18 +158,17 @@ const Register = () => {
       });
       setLoading(false);
       return;
-    } else {
-      if (password !== confirmPassword) {
-        toast({
-          title: "The Passwords do not match",
-          status: "warning",
-          duration: 4000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setLoading(false);
-        return;
-      }
+    }
+    if (password !== confirmPassword) {
+      toast({
+        title: "The Passwords do not match",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
     }
 
     try {
@@ -122,6 +196,7 @@ const Register = () => {
         isClosable: true,
         position: "bottom",
       });
+      // setUser(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       history.push("/chats");
@@ -205,7 +280,7 @@ const Register = () => {
           width="100%"
           border="2px"
           borderColor="green.500"
-          onClick={handleSubmit}
+          onClick={handleSubmit2}
           isLoading={loading}
         >
           Register
