@@ -19,7 +19,8 @@ import UpdateGroupChatModal from "./Misc/UpdateGroupChatModal";
 import Picker from "emoji-picker-react";
 import { BsEmojiSmileFill } from "react-icons/bs";
 
-const ENDPOINT = "http://localhost:7000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+// const ENDPOINT = "http://localhost:7000";
+const ENDPOINT = "https://blinkchat.onrender.com"; //-> After deployment
 
 var socket, selectedChatCompare;
 
